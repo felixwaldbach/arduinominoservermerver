@@ -10,16 +10,16 @@ class TemperatureSensor extends Component {
         this.state = {
             style: props.style,
             endpoint: 'http://localhost:5000',
-            temperature: 25
+            temperature: 0
         }
     }
 
     componentDidMount() {
         const socket = socketIOClient(this.state.endpoint);
         const app = this;
-        socket.on('ui_temperature_data', function (data) {
+        socket.on('web_temperature_data', function (data) {
             app.setState({
-                temperature: data.temperature
+                temperature: data
             });
         });
     }

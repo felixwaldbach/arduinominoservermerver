@@ -19,7 +19,7 @@ class LightStripe extends Component {
         super(props);
         this.state = {
             style: props.style,
-            lightData: 30,
+            lightData: 0,
             endpoint: 'http://localhost:5000'
         }
     }
@@ -27,9 +27,9 @@ class LightStripe extends Component {
     componentDidMount() {
         const socket = socketIOClient(this.state.endpoint);
         const app = this;
-        socket.on('ui_lightstripe_data', function (data) {
+        socket.on('web_softpot_data', function (data) {
             app.setState({
-                lightData: data.lightData
+                lightData: data
             });
         });
     }

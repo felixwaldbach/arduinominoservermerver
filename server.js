@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mosca = require('mosca')
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
@@ -7,6 +8,29 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var mqttServ = new mosca.Server({});
+mqttServ.attachHttpServer(http);
+
+
+mqttServ.on('clientConnected', function (client) {
+    console.log('client connected: ' + client.id);
+});
+
+// fired when a message is received
+mqttServ.on('published', function (packet, client) {
+    switch (packet.topic) {
+        case '/feeds/softpot':
+            io.emit('web_softpot_data', parseInt(packet.payload.toString('utf8')));
+            break;
+        case '/feeds/temperature':
+            io.emit('web_temperature_data', packet.payload.toString('utf8'));
+            break;
+    }
+});
+
+mqttServ.on('ready', function () {
+    console.log('Mosca server is up and running');
+});
 
 app.get('/api/hello', (req, res) => {
     res.send({express: 'Hello From Express'});
