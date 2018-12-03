@@ -18,7 +18,14 @@ mqttServ.on('clientConnected', function (client) {
 
 // fired when a message is received
 mqttServ.on('published', function (packet, client) {
-    console.log('Published: ' + packet.payload.toString('utf8'));
+    switch (packet.topic) {
+        case '/feeds/softpot':
+            io.emit('web_softpot_data', parseInt(packet.payload.toString('utf8')));
+            break;
+        case '/feeds/temperature':
+            io.emit('web_temperature_data', packet.payload.toString('utf8'));
+            break;
+    }
 });
 
 mqttServ.on('ready', function () {
