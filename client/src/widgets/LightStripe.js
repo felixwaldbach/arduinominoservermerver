@@ -39,7 +39,7 @@ class LightStripe extends Component {
         return (
             <div className={classes.root + " light-stripe-container"}>
                 <h1>Lighstripe Data: </h1>
-                <LinearProgress variant="determinate" value={this.state.lightData}/>
+                <LinearProgress variant="determinate" value={this.state.lightData / 7}/>
                 <p>{this.state.lightData}</p>
             </div>
         );
