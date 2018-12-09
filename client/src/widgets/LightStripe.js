@@ -38,8 +38,9 @@ class LightStripe extends Component {
         const {classes} = this.props;
         return (
             <div className={classes.root + " light-stripe-container"}>
+<<<<<<< HEAD
                 <h1>Softpot Data: </h1>
-                <LinearProgress variant="determinate" value={this.state.lightData}/>
+                <LinearProgress variant="determinate" value={this.state.lightData / 7}/>
                 <p>{this.state.lightData}</p>
             </div>
         );
