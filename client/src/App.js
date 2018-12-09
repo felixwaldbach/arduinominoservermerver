@@ -4,6 +4,7 @@ import './font/css/grid.css';
 import './App.css';
 import LightStripe from "./widgets/LightStripe";
 import TemperatureSensor from "./widgets/TemperatureSensor";
+import HumiditySensor from "./widgets/HumiditySensor";
 
 class App extends Component {
     state = {
@@ -47,6 +48,9 @@ class App extends Component {
                     </div>
                     <div id="widget">
                         <TemperatureSensor/>
+                    </div>
+                    <div id="widget">
+                        <HumiditySensor/>
                     </div>
                 </div>
 

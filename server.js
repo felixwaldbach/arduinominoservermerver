@@ -25,6 +25,9 @@ mqttServ.on('published', function (packet, client) {
         case '/feeds/temperature':
             io.emit('web_temperature_data', packet.payload.toString('utf8'));
             break;
+        case '/feeds/humidity':
+            io.emit('web_humidity_data', packet.payload.toString('utf8'));
+            break;
     }
 });
 
@@ -45,18 +48,6 @@ app.post('/api/world', (req, res) => {
 // Web Sockets
 io.on('connection', function (socket) {
     console.log('a user connected');
-
-    socket.on('message', function (data) {
-        console.log(data);
-    })
-
-    socket.on('arduino_lightstripe_data', function (data) {
-        socket.emit('ui_lightstripe_data', data);
-    })
-
-    socket.on('arduino_temperature_data', function (data) {
-        socket.emit('ui_temperature_data', data);
-    })
 });
 
 http.listen(port, () => console.log(`Listening on port ${port}`));
