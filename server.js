@@ -27,7 +27,7 @@ mqttServ.on('published', function (packet, client) {
         case 'mirrorino/temperature':
             io.emit('web_temperature_data', packet.payload.toString('utf8'));
             break;
-        case '/feeds/humidity':
+        case 'mirrorino/humidity':
             io.emit('web_humidity_data', packet.payload.toString('utf8'));
             break;
     }
